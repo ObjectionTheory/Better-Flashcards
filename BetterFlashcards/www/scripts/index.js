@@ -13,11 +13,12 @@
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
-        var parentElement = document.getElementById('deviceready');
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+      
+        var storage = window.localStorage;
+        var value = storage.setItem('Bread', 'βεκος');
+        var bread = storage.getItem('Bread');
+        
+        var firstCard = new Flashcard("Bread", bread);
     };
 
     function onPause() {
@@ -28,10 +29,20 @@
         // TODO: This application has been reactivated. Restore application state here.
     };
 
-    var storage = window.localStorage;
-    var value = storage.setItem('bread', 'βεκος');
-    var bread = storage.getItem('bread');
+    function Flashcard(name, content) {
+        var card = document.createElement("div");
+        card.id = name;
+        card.className = "card";
 
-    document.getElementById("bread").textContent = bread;
+        var cardText = document.createElement("p");
+        cardText.className = "card-text";
+        cardText.textContent = content;
+        card.appendChild(cardText);
+
+        var main = document.getElementById("main");
+        main.appendChild(card);
+    }
+
+    
 
 } )();
