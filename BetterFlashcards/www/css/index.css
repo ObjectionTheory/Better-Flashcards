@@ -1,25 +1,62 @@
+/*
+    Colors:
+    white: #F4FAFE
+    lightest blue: #83BBE6
+    lighter blue: #4191CF
+    blue: #0A6EBC
+    navy: #043A64
+*/
+/*http://paletton.com/#uid=13t0u0kKyQdcaUns4OzxpN1PA97 */ 
+
+:root {
+    --color-primary-1: #0694E0;
+    --color-primary-2: #C8ECFF;
+    --color-primary-3: #0694E0;
+    --color-primary-4: #0B8FD6;
+    --color-primary-5: #011E2E;
+
+    --color-complementary-1: #FF9C43;
+    --color-complementary-2: #FFF9F5;
+    --color-complementary-3: #FFC18A;
+    --color-complementary-4: #FF7800;
+    --color-complementary-5: #9B4900;
+}
+
+html {
+    outline: none;
+    font-family: 'MS Reference Sans Serif';
+}
+
 body {
-    font: 1rem "Lucida Grande", Helvetica, Arial, sans-serif;
+    
     overflow-x: hidden;
-    background-color: #1f8dd6;
+    background-color: var(--color-primary-5);
+    
 }
 
 .card {
-    position: absolute;
-    width: 80%;
-    height: 80%;
+    position: relative;
+    width: 280px;
+    height: 500px;
     left: 50%;
-    top: 50%;
-    margin: auto;
-    background-color: #d6681f;
+    -webkit-transform: translate(-50%, 2.5%);
     border-radius: 10px;
-    transform: translateX(-50%) translateY(-50%);
+    
 }
 
-.card-text {
-    position: absolute;
-    left: 50%;
+.card-interior {
+    /*background-color: var(--color-primary-1);
+    border-radius: 10px;*/
+    height: 100%;
+    width: 100%;
+}
+
+.card-text-front,
+.card-text-back {
+    position: relative;
     top: 50%;
-    color: white;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+    color: var(--color-primary-2);
+    text-align: center;
 }

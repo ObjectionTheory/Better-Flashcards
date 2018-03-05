@@ -13,12 +13,15 @@
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
-      
-        var storage = window.localStorage;
-        var value = storage.setItem('Bread', 'βεκος');
-        var bread = storage.getItem('Bread');
         
-        var firstCard = new Flashcard("Bread", bread);
+        var storage = window.localStorage;
+        var value = storage.setItem('Bread', JSON.stringify(
+            { front: 'βεκος', back: 'Bread in ancient Phrygian' }
+        ));
+        var bread = JSON.parse(storage.getItem('Bread'));
+
+        var firstCard = new Flashcard("Bread", bread.front, bread.back);
+        
     };
 
     function onPause() {
@@ -29,20 +32,67 @@
         // TODO: This application has been reactivated. Restore application state here.
     };
 
-    function Flashcard(name, content) {
-        var card = document.createElement("div");
-        card.id = name;
-        card.className = "card";
+    function Flashcard(name, frontText, backText) {
+        var card = $(document.createElement('div'));
+        var content = $(document.createElement('div')); 
+        var front = $(document.createElement('div'));
+        var back = $(document.createElement('div'));
 
-        var cardText = document.createElement("p");
-        cardText.className = "card-text";
-        cardText.textContent = content;
-        card.appendChild(cardText);
+       
+        card
+            .appendTo($("#main"))
+            .attr({
+                class: "card",
+                id: name,
+                top: "50%"
+            });
 
-        var main = document.getElementById("main");
-        main.appendChild(card);
+        front
+            .appendTo(card)
+            .attr({
+                class: "front card-interior",
+                id: name + "-front"
+            })
+        .html("<div class='card-text-front'>" + frontText + "</div>");
+
+        back
+            .appendTo(card)
+            .attr({
+                class: "back card-interior",
+                id: name + "-back"
+            })
+        .html("<div class='card-text-back'>" + backText + "</div>");
+
+        $(".card-text-front").fitText(0.5);
+        $(".card-text-back").fitText();
+
+        var frontImage = SVG(name + "-front").size('100%', '100%');
+        var backImage = SVG(name + "-back");
+        $.get('./images/Card.svg', function (contents) {
+            var $tmp = $('svg', contents);
+            frontImage.svg($tmp.html());
+
+            backImage.svg($tmp.html());
+                //.flip('x', '50%');
+        }, 'xml');
+
+        card.flip({ 
+            trigger: 'click',
+            forceWidth: true,
+            forceHeight: true
+        });
+        card.bind("tap", tapHandler);
+        
+
+        function tapHandler(event) {
+            //card.flip('toggle');
+        }
+
     }
 
     
 
-} )();
+    
+    
+
+})();
