@@ -61,3 +61,22 @@ body {
     text-align: center;
 }
 
+.swiping-left {
+    animation: swipe-left 0.5s ease-in-out;
+}
+
+.swiping-right {
+    animation: swipe-left 0.5s ease-in-out;
+}
+
+@keyframes swipe-left{
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes swipe-right{
+    100% {
+        transform: translateX(50%);
+    }
+}
