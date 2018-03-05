@@ -88,6 +88,25 @@
             //card.flip('toggle');
         }
 
+        this.card.bind("swipeLeft", swipeLeftHandler);
+        this.card.bind("swipeRight", swipeRightHandler);
+        
+        function tapHandler(event) {
+            swipeLeftHandler(event);
+        }
+
+        function swipeLeftHandler(event) {
+            if ((position == "right" || position == "center")) {
+                this.card.addClass("swiping-left");
+            }
+        }
+
+        function swipeRightHandler(event) {
+            if ((position == "left" || position == "center")) {
+                this.card.addClass("swiping-right");
+            }
+        }
+
     }
 
     
