@@ -37,7 +37,8 @@
         var content = $(document.createElement('div')); 
         var front = $(document.createElement('div'));
         var back = $(document.createElement('div'));
-
+        var position = "right";
+        var moveDistance = "100%";
        
         card
             .appendTo($("#main"))
@@ -73,6 +74,7 @@
             frontImage.svg($tmp.html());
 
             backImage.svg($tmp.html());
+            back.find("#layer2").attr("fill", "#ccc");
                 //.flip('x', '50%');
         }, 'xml');
 
@@ -81,32 +83,40 @@
             forceWidth: true,
             forceHeight: true
         });
+
         card.bind("tap", tapHandler);
-        
-
-        function tapHandler(event) {
-            //card.flip('toggle');
-        }
-
-        this.card.bind("swipeLeft", swipeLeftHandler);
-        this.card.bind("swipeRight", swipeRightHandler);
+        $("#main").add(card).on("swipeleft", swipeLeftHandler);
+        $("#main").add(card).on("swiperight", swipeRightHandler);
         
         function tapHandler(event) {
-            swipeLeftHandler(event);
         }
 
         function swipeLeftHandler(event) {
-            if ((position == "right" || position == "center")) {
-                this.card.addClass("swiping-left");
+            if (position === "right") {
+                move("-" + moveDistance);
+                position = "center";
+            } else if (position === "center") {
+                move("-" + moveDistance);
+                position = "left";
             }
+            
         }
 
         function swipeRightHandler(event) {
-            if ((position == "left" || position == "center")) {
-                this.card.addClass("swiping-right");
+            if (position === "left") {
+                move(moveDistance);
+                position = "center";
+            } else if (position === "center") {
+                move(moveDistance);
+                position = "right";
             }
         }
 
+        function move(distance) {
+            card.animate({
+                'marginLeft': "+=" + distance
+            });
+        }
     }
 
     

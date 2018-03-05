@@ -38,7 +38,7 @@ body {
     position: relative;
     width: 280px;
     height: 500px;
-    left: 50%;
+    left: 150%;
     -webkit-transform: translate(-50%, 2.5%);
     border-radius: 10px;
     
@@ -55,28 +55,12 @@ body {
 .card-text-back {
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-40%);
     width: 100%;
     color: var(--color-primary-2);
     text-align: center;
 }
 
-.swiping-left {
-    animation: swipe-left 0.5s ease-in-out;
-}
-
-.swiping-right {
-    animation: swipe-left 0.5s ease-in-out;
-}
-
-@keyframes swipe-left{
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-@keyframes swipe-right{
-    100% {
-        transform: translateX(50%);
-    }
+#layer2 {
+    fill: var(--color-complementary-1);
 }
