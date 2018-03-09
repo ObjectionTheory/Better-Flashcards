@@ -15,10 +15,20 @@
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         
         var storage = window.localStorage;
-        var value = storage.setItem('Bread', JSON.stringify(
+
+        storage.setItem("lists", JSON.stringify({
+            default: 'breadlist'
+        }));
+
+        storage.setItem("breadList", JSON.stringify({
+
+        }));
+        storage.setItem('bread', JSON.stringify(
             { front: 'βεκος', back: 'Bread in ancient Phrygian' }
         ));
-        var bread = JSON.parse(storage.getItem('Bread'));
+
+        var first = storage.getItem("lists").default;
+        var bread = JSON.parse(storage.getItem(first));
 
         var firstCard = new Flashcard("Bread", bread.front, bread.back);
         
@@ -31,6 +41,11 @@
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
     };
+
+    function addListToStorage(key, list) {
+        var storage = window.localStorage;
+        storage.setItem(key, list);
+    }
 
     function Flashcard(name, frontText, backText) {
         var card = $(document.createElement('div'));
@@ -115,7 +130,7 @@
         function move(distance) {
             card.animate({
                 'marginLeft': "+=" + distance
-            });
+            }, 'fast');
         }
     }
 
